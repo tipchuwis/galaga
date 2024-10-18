@@ -25,5 +25,5 @@ while running: # Mientras que running es cierto, es decir, mientras SIGA CORRIEN
 
     # Renderizamos la pantalla / Render the display
     sprite_group.draw(display)
-
+# prueba
     pygame.display.update()
