@@ -7,6 +7,7 @@ running = True # Booleano que nos permite CORRER el juego.
 fps = 60 # Variable para limitar los fps.
 clock = pygame.time.Clock() # Utilizamos pygame para limitar los ticks en el juego.
 player = Ship() # Nuestro jugador es la nave, por lo que habrá una variable que acceda a la clase importada.
+BLACK = (0, 0, 0)
 
 # player_gato = pygame.image.load('gatopixel.png').convert_alpha()
 # background_img = pygame.image.load('background-image.jpeg').convert()
@@ -18,10 +19,23 @@ while running: # Mientras que running es cierto, es decir, mientras SIGA CORRIEN
     # Tick Clock
     clock.tick(fps) # Especificamos los fps con nuestras respectivas variables.
     # Handle Events
-    for event in pygame.event.get(): # Por cada evento que pase en el display, guárdalo,
-       if event.type == pygame.QUIT:# y si te dicen que lo cierres, pues cierra el jueguito.
+    for event in pygame.event.get():  # Por cada evento que pase en el display, guárdalo
+        if event.type == pygame.QUIT:  # y si te dicen que lo cierres, pues cierra el jueguito.
             pygame.quit() 
             quit()
+    
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                player.vel_x = -player.speed
+            elif event.key == pygame.K_d:
+                player.vel_x = +player.speed
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a:
+                player.vel_x = 0
+            if event.key == pygame.K_d:
+                player.vel_x = 0
+
+           
     
     # mouse_pos = pygame.mouse.get_pos()
     # x = mouse_pos[0]
@@ -32,6 +46,6 @@ while running: # Mientras que running es cierto, es decir, mientras SIGA CORRIEN
     sprite_group.update()
 
     # Renderizamos la pantalla / Render the display
+    display.fill(BLACK)
     sprite_group.draw(display)
-# prueba
     pygame.display.update()
