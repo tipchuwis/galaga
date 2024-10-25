@@ -1,6 +1,6 @@
 import pygame 
 from ship import Ship # Del archivo de ship, importa la clase Ship, que es nuestro jugador.
-
+from bullet import *
 
 display = pygame.display.set_mode((640, 480)) # Utilizamos métodos y clases de pygame para hacer la pantalla. La sintáxis es altura por anchura.
 running = True # Booleano que nos permite CORRER el juego.
@@ -29,6 +29,8 @@ while running: # Mientras que running es cierto, es decir, mientras SIGA CORRIEN
                 player.vel_x = -player.speed
             elif event.key == pygame.K_d:
                 player.vel_x = +player.speed
+            if event.key == pygame.K_SPACE:
+                player.shoot()
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 player.vel_x = 0
@@ -43,9 +45,11 @@ while running: # Mientras que running es cierto, es decir, mientras SIGA CORRIEN
     # player_gato = mouse_pos
     
     # Actualizamos los objetos / Update all the objects
+    
     sprite_group.update()
 
     # Renderizamos la pantalla / Render the display
     display.fill(BLACK)
     sprite_group.draw(display)
+    player.bullets.draw(display)
     pygame.display.update()
