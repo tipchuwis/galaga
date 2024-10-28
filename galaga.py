@@ -56,6 +56,13 @@ while running:
         enemy[0].get_hit()
         pos = (bullet.rect.x, bullet.rect.y)
         particle_spawner.spawn_particles(pos)
+    collided = pygame.sprite.groupcollide(sprite_group, enemy_spawner.enemy_group, False, False)
+    for player, enemy in collided.items():
+        player.get_hit()
+        enemy[0].hp = 0
+        enemy[0].get_hit()
+        
+
 
     # Render the display
     display.fill(BLACK)

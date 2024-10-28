@@ -13,9 +13,12 @@ class Ship(pygame.sprite.Sprite):
         self.rect.x = c.DISPLAY_WIDTH//2
         self.rect.y = c.DISPLAY_HEIGHT - self.rect.height * 2
         self.bullets = pygame.sprite.Group()
-        self.hud = HUD()
+        self.max_hp = 10
+        self.hp = self.max_hp
+        self.hud = HUD(self.hp)
         self.hud_group = pygame.sprite.Group()
         self.hud_group.add(self.hud)
+        self.lives = 3
         self.vel_x = 0        
         self.vel_y = 0        
         self.speed = 5
@@ -39,3 +42,18 @@ class Ship(pygame.sprite.Sprite):
         new_bullet.rect.x = self.rect.x + (self.rect.width // 2) - 1
         new_bullet.rect.y = self.rect.y
         self.bullets.add(new_bullet)
+    
+    def get_hit(self):
+        self.hp -= 1
+        self.hud.health_bar.decrease_hp_value()
+        if self.hp <=0:
+            self.hp = 0
+            self.death()
+        print(f'HP: {self.hp}')
+
+    def death(self):
+        self.lives -=1
+        print(f'Lives: {self.lives}')
+        if self.lives <=0:
+            self.lives = 0
+        self.hp = 3
