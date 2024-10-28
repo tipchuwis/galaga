@@ -16,6 +16,9 @@ class BG(pygame.sprite.Sprite):
         
     def update(self):
         self.stars.update()
+        for star in self.stars:
+            if star.rect.y >= c.DISPLAY_HEIGHT:
+                self.stars.remove(star)
         if self.timer == 0:
             new_star = Star()
             self.stars.add(new_star)

@@ -1,6 +1,5 @@
 import pygame
-#import constants as c
-
+import constants as c
 
 class Bullet(pygame.sprite.Sprite):
     def __init__ (self):
@@ -13,7 +12,7 @@ class Bullet(pygame.sprite.Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.vel_x = 0
-        self.vel_y = -5
+        self.vel_y = -8
 
     def update(self):
         self.rect.x += self.vel_x

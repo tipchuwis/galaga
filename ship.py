@@ -19,11 +19,14 @@ class Ship(pygame.sprite.Sprite):
 
     def update(self):
         self.bullets.update()
+        for bullet in self.bullets:
+            if bullet.rect.y <= 0:
+                self.bullets.remove(bullet)
         self.rect.x += self.vel_x
         self.rect.y += self.vel_y
 
     def shoot(self):
         new_bullet = Bullet()
-        new_bullet.rect.x = self.rect.x
+        new_bullet.rect.x = self.rect.x + (self.rect.width // 2) - 1
         new_bullet.rect.y = self.rect.y
         self.bullets.add(new_bullet)
