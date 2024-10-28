@@ -23,6 +23,10 @@ class Ship(pygame.sprite.Sprite):
             if bullet.rect.y <= 0:
                 self.bullets.remove(bullet)
         self.rect.x += self.vel_x
+        if self.rect.x <= 0:
+            self.rect.x = 0
+        elif self.rect.x >= c.DISPLAY_WIDTH - self.rect.width:
+            self.rect.x = c.DISPLAY_WIDTH - self.rect.width
         self.rect.y += self.vel_y
 
     def shoot(self):

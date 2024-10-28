@@ -2,6 +2,7 @@ import pygame
 from ship import Ship
 import constants as c
 from background import BG
+from enemy_spawner import EnemySpawner
 
 # Display setup
 display = pygame.display.set_mode((c.DISPLAY_SIZE))
@@ -16,6 +17,7 @@ bg_group.add(bg)
 player = Ship()
 sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
+enemy_spawner = EnemySpawner()
 
 running = True 
 while running:
@@ -43,10 +45,12 @@ while running:
     # Update all the objects
     bg_group.update()
     sprite_group.update()
+    enemy_spawner.update()
 
     # Render the display
     display.fill(BLACK)
     bg_group.draw(display)
     sprite_group.draw(display)
     player.bullets.draw(display)
+    enemy_spawner.enemy_group.draw(display)
     pygame.display.update()
