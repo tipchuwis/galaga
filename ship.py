@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from bullet import Bullet
 import constants as c
+from hud import HUD
 
 class Ship(pygame.sprite.Sprite):
     def __init__(self):
@@ -9,9 +10,12 @@ class Ship(pygame.sprite.Sprite):
         self.image = pygame.image.load('ship.png').convert()
         self.image = pygame.transform.scale_by(self.image, (self.image.get_width()*0.15, self.image.get_height()*0.15))
         self.rect = self.image.get_rect()
-        self.rect.x = c.DISPLAY_WIDTH//2 
+        self.rect.x = c.DISPLAY_WIDTH//2
         self.rect.y = c.DISPLAY_HEIGHT - self.rect.height * 2
         self.bullets = pygame.sprite.Group()
+        self.hud = HUD()
+        self.hud_group = pygame.sprite.Group()
+        self.hud_group.add(self.hud)
         self.vel_x = 0        
         self.vel_y = 0        
         self.speed = 5
@@ -19,6 +23,7 @@ class Ship(pygame.sprite.Sprite):
 
     def update(self):
         self.bullets.update()
+        self.hud_group.update()
         for bullet in self.bullets:
             if bullet.rect.y <= 0:
                 self.bullets.remove(bullet)
