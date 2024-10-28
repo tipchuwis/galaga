@@ -10,7 +10,7 @@ class Ship(pygame.sprite.Sprite):
         self.image = pygame.transform.scale_by(self.image, (self.image.get_width()*0.15, self.image.get_height()*0.15))
         self.rect = self.image.get_rect()
         self.rect.x = c.DISPLAY_WIDTH//2 
-        self.rect.y = c.DISPLAY_HEIGHT - self.rect.height
+        self.rect.y = c.DISPLAY_HEIGHT - self.rect.height * 2
         self.bullets = pygame.sprite.Group()
         self.vel_x = 0        
         self.vel_y = 0        

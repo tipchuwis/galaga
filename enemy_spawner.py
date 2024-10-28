@@ -1,7 +1,7 @@
 import pygame
 from enemy import Enemy
 import random
-from pygame.locals import *
+import constants as c
 
 class EnemySpawner:
     def __init__(self):
@@ -10,6 +10,9 @@ class EnemySpawner:
 
     def update(self):
         self.enemy_group.update()
+        for enemy in self.enemy_group:
+            if enemy.rect.y >= c.DISPLAY_HEIGHT:
+                self.enemy_group.remove(enemy)
         if self.spawn_timer == 0:
             self.spawn_enemy()
             self.spawn_timer = random.randrange(30,120)
