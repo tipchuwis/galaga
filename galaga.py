@@ -5,6 +5,9 @@ from background import BG
 from enemy_spawner import EnemySpawner
 from particle_spawner import ParticleSpawner
 
+# Pygame Initialization
+pygame.font.init()
+
 # Display setup
 display = pygame.display.set_mode((c.DISPLAY_SIZE))
 fps = 60
@@ -54,6 +57,7 @@ while running:
     collided = pygame.sprite.groupcollide(player.bullets, enemy_spawner.enemy_group, True, False)
     for bullet, enemy in collided.items():
         enemy[0].get_hit()
+        player.hud.score.update_score()
         pos = (bullet.rect.x, bullet.rect.y)
         particle_spawner.spawn_particles(pos)
     collided = pygame.sprite.groupcollide(sprite_group, enemy_spawner.enemy_group, False, False)
@@ -61,7 +65,7 @@ while running:
         player.get_hit()
         enemy[0].hp = 0
         enemy[0].get_hit()
-        
+          
 
 
     # Render the display
@@ -73,4 +77,6 @@ while running:
     particle_spawner.particle_group.draw(display)
     player.hud_group.draw(display)
     player.hud.health_bar_group.draw(display)
+    player.hud.score_group.draw(display)
+    player.hud.icons_group.draw(display)
     pygame.display.update()

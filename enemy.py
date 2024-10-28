@@ -12,6 +12,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.y = -self.rect.height
         self.hp = 3
         self.vel_x = 0
+        self.score_value = 5
         self.vel_y = random.randrange(3, 8)
         self.image.set_colorkey([0,255,0])
 
