@@ -13,12 +13,13 @@ class Ship(pygame.sprite.Sprite):
         self.rect.x = c.DISPLAY_WIDTH//2
         self.rect.y = c.DISPLAY_HEIGHT - self.rect.height * 2
         self.bullets = pygame.sprite.Group()
-        self.max_hp = 10
+        self.max_hp = 3
         self.lives = 3
         self.hp = self.max_hp
         self.hud = HUD(self.hp, self.lives)
+        self.is_alive = True
         self.hud_group = pygame.sprite.Group()
-        #self.hud_group.add(self.hud)
+        self.hud_group.add(self.hud)
         self.vel_x = 0        
         self.vel_y = 0        
         self.speed = 5
@@ -38,21 +39,27 @@ class Ship(pygame.sprite.Sprite):
         self.rect.y += self.vel_y
 
     def shoot(self):
-        new_bullet = Bullet()
-        new_bullet.rect.x = self.rect.x + (self.rect.width // 2) - 1
-        new_bullet.rect.y = self.rect.y
-        self.bullets.add(new_bullet)
+        if self.is_alive:
+            new_bullet = Bullet()
+            new_bullet.rect.x = self.rect.x + (self.rect.width // 2) - 1
+            new_bullet.rect.y = self.rect.y
+            self.bullets.add(new_bullet)
     
     def get_hit(self):
-        self.hp -= 1
-        self.hud.health_bar.decrease_hp_value()
-        if self.hp <=0:
-            self.hp = 0
-            self.death()
+        if self.is_alive:
+            self.hp -= 1
+            self.hud.health_bar.decrease_hp_value()
+            if self.hp <=0:
+                self.hp = 0
+                self.death()
 
     def death(self):
         self.lives -=1
         if self.lives <=0:
             self.lives = 0
+            self.is_alive = False
+            self.image = pygame.Surface((0,0))
         self.hp = self.max_hp
         self.hud.health_bar.reset_health_to_max()
+        self.hud.lives.decrement_life()
+        self.rect.x = c.DISPLAY_WIDTH // 2

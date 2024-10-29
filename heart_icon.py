@@ -14,15 +14,19 @@ class HeartIcon(pygame.sprite.Sprite):
                           self.img_heart_03,
                           self.img_heart_04,
                           self.img_heart_05]
-        self.image.set_colorkey([0,255,0])
+        self.img_heart_01.set_colorkey([0,255,0])
+        self.img_heart_02.set_colorkey([0,255,0])
+        self.img_heart_03.set_colorkey([0,255,0])
+        self.img_heart_04.set_colorkey([0,255,0])
+        self.img_heart_05.set_colorkey([0,255,0])
         self.anim_index = 0
         self.max_index = len(self.anim_list) - 1
-        self.max_frame_duration = 3
+        self.max_frame_duration = 5
         self.frame_duration = self.max_frame_duration
         self.image = self.anim_list[self.anim_index]
         self.rect = self.image.get_rect()
-        self.rect.x = 20
-        self.rect.y = c.DISPLAY_HEIGHT - self.rect.height - 50
+        self.rect.x = 275
+        self.rect.y = c.DISPLAY_HEIGHT - self.rect.height - 12
 
     def update(self):
         if self.frame_duration == 0:

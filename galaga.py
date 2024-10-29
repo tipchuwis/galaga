@@ -4,6 +4,7 @@ import constants as c
 from background import BG
 from enemy_spawner import EnemySpawner
 from particle_spawner import ParticleSpawner
+from alert_box import AlertBox
 
 # Pygame Initialization
 pygame.font.init()
@@ -23,6 +24,7 @@ sprite_group = pygame.sprite.Group()
 sprite_group.add(player)
 enemy_spawner = EnemySpawner()
 particle_spawner = ParticleSpawner()
+alert_box_group = pygame.sprite.Group()
 
 running = True 
 while running:
@@ -52,6 +54,7 @@ while running:
     sprite_group.update()
     enemy_spawner.update()
     particle_spawner.update()
+    alert_box_group.update
 
     # Check collision
     collided = pygame.sprite.groupcollide(player.bullets, enemy_spawner.enemy_group, True, False)
@@ -65,7 +68,13 @@ while running:
         player.get_hit()
         enemy[0].hp = 0
         enemy[0].get_hit()
-          
+    
+    # Check for Game Over
+    if not player.is_alive:
+        enemy_spawner.clear_enemies()
+        alert_box = AlertBox("GAME OVER")
+        alert_box.update()
+        alert_box_group.add(alert_box)
 
 
     # Render the display
@@ -79,4 +88,5 @@ while running:
     player.hud.health_bar_group.draw(display)
     player.hud.score_group.draw(display)
     player.hud.icons_group.draw(display)
+    alert_box_group.draw(display)
     pygame.display.update()
